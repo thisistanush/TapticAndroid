@@ -1,0 +1,8 @@
+<resources>
+    <style name="Theme.TapticApp" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Your colors -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryContainer">@color/purple_700</item>
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
+    </style>
+</resources>
