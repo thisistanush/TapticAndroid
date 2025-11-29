@@ -145,7 +145,7 @@ public class Interpreter {
     }
 
     private String getLabel(String[] labels, int index) {
-        if (index < 0 || index >= labels.length)
+        if (labels == null || index < 0 || index >= labels.length)
             return "class_" + index;
         return labels[index];
     }

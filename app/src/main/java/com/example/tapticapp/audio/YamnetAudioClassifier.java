@@ -55,6 +55,7 @@ public class YamnetAudioClassifier {
             Log.d(TAG, "YamNet model loaded with " + labels.length + " classes");
         } catch (IOException e) {
             Log.e(TAG, "Failed to load YamNet model", e);
+            labels = new String[0];
         }
     }
 
