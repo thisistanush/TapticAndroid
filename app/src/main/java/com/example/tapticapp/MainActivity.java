@@ -85,13 +85,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkPermissions() {
-        // if (ContextCompat.checkSelfPermission(this,
-        // Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
-        // checkAndRequestNotificationPermission();
-        // } else {
-        // micPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO);
-        // }
-        Toast.makeText(this, "Permissions Check Disabled", Toast.LENGTH_SHORT).show();
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
+            checkAndRequestNotificationPermission();
+        } else {
+            micPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO);
+        }
     }
 
     private void checkAndRequestNotificationPermission() {
@@ -108,14 +107,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startAudioService() {
-        // Intent intent = new Intent(this, AudioClassificationService.class);
-        // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        // startForegroundService(intent);
-        // } else {
-        // startService(intent);
-        // }
-        // bindService(intent, connection, Context.BIND_AUTO_CREATE);
-        Toast.makeText(this, "Audio Service Disabled for Debugging", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, AudioClassificationService.class);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(intent);
+        } else {
+            startService(intent);
+        }
+        bindService(intent, connection, Context.BIND_AUTO_CREATE);
     }
 
     private void updateUI(List<Interpreter.DetectionResult> top3, double level) {
