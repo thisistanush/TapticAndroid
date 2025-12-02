@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#121212">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Notification Behavior Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="12dp"
+            android:text="Notification Behavior"
+            android:textColor="#00BCD4"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Play Sound Checkbox -->
+        <CheckBox
+            android:id="@+id/playSoundCheckbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Play a sound when a notification is triggered"
+            android:textColor="#FFFFFF"
+            android:checked="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="12dp"
+            android:text="Choose whether Taptic should play a sound when it sends you a notification."
+            android:textColor="#B0BEC5"
+            android:textSize="12sp" />
+
+        <!-- Notification Sound Spinner -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Notification sound:"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+        <Spinner
+            android:id="@+id/notificationSoundSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="12dp"
+            android:background="@android:drawable/edit_text"
+            android:padding="12dp" />
+
+        <!-- Emergency Sound Spinner -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Emergency sound:"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+        <Spinner
+            android:id="@+id/emergencySoundSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="12dp"
+            android:background="@android:drawable/edit_text"
+            android:padding="12dp" />
+
+        <!-- Notification Emoji Spinner -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Notification emoji:"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+        <Spinner
+            android:id="@+id/notificationEmojiSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="12dp"
+            android:background="@android:drawable/edit_text"
+            android:padding="12dp" />
+
+        <!-- Flash Checkbox -->
+        <CheckBox
+            android:id="@+id/flashCheckbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Flash screen red for emergency sounds"
+            android:textColor="#FFFFFF"
+            android:checked="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="12dp"
+            android:text="Emergency sounds (fire alarm, glass breaking, gunshot, etc.) flash the whole screen bright red for 10 seconds."
+            android:textColor="#B0BEC5"
+            android:textSize="12sp" />
+
+        <!-- Sensitivity Slider -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sensitivity:"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+        <SeekBar
+            android:id="@+id/sensitivitySlider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:max="85"
+            android:min="5"
+            android:progress="20" />
+
+        <TextView
+            android:id="@+id/sensitivityValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0.20"
+            android:textColor="#B0BEC5"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp"
+            android:text="Higher sensitivity → more notifications (even low-confidence detections). Lower sensitivity → only very confident detections."
+            android:textColor="#B0BEC5"
+            android:textSize="12sp" />
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="16dp"
+            android:background="#2E2E2E" />
+
+        <!-- Emergency Sounds Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Emergency Sounds"
+            android:textColor="#00BCD4"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="Select which sounds should trigger emergency alerts (screen flash, emergency sound). By default, sounds like fire, smoke, alarm, siren, glass breaking, gunshot, and explosion are marked as emergency."
+            android:textColor="#B0BEC5"
+            android:textSize="12sp" />
+
+        <!-- Add Emergency Sound -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add emergency sound:"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp" />
+
+            <Spinner
+                android:id="@+id/emergencyLabelSpinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="8dp"
+                android:background="@android:drawable/edit_text"
+                android:padding="8dp" />
+
+            <Button
+                android:id="@+id/addEmergencyButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#00BCD4"
+                android:text="Add"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <!-- Current Emergency Sounds Label -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Current emergency sounds:"
+            android:textColor="#B0BEC5"
+            android:textSize="12sp" />
+
+        <!-- Emergency Chips Container (FlowLayout effect using LinearLayout) -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:background="#1E1E1E"
+            android:padding="8dp">
+
+            <LinearLayout
+                android:id="@+id/emergencyChipsContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+
+        </HorizontalScrollView>
+
+        <!-- Save Button -->
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="#00BCD4"
+            android:text="Save Settings"
+            android:textColor="#FFFFFF" />
+
+    </LinearLayout>
+
+</ScrollView>

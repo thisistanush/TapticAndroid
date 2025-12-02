@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Notification Sounds -->
+    <string-array name="notification_sounds">
+        <item>System beep</item>
+        <item>Double beep</item>
+        <item>None</item>
+    </string-array>
+
+    <!-- Emergency Sounds -->
+    <string-array name="emergency_sounds">
+        <item>Alarm pulse</item>
+        <item>Rapid beeps</item>
+        <item>Double beep</item>
+        <item>System beep</item>
+    </string-array>
+
+    <!-- Notification Emojis -->
+    <string-array name="notification_emojis">
+        <item>🔵</item>
+        <item>🔴</item>
+        <item>🟢</item>
+        <item>🔔</item>
+        <item>✨</item>
+        <item>⚡</item>
+    </string-array>
+</resources>

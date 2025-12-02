@@ -175,6 +175,46 @@ public class AppConfig {
         return getBroadcastListenLabels().contains(label);
     }
 
+    // Monitored & Notify Lists (Stored as DISABLED sets since default is enabled)
+    private static final String KEY_DISABLED_MONITORED = "disabled_monitored";
+    private static final String KEY_DISABLED_NOTIFY = "disabled_notify";
+
+    public Set<String> getDisabledMonitoredLabels() {
+        return prefs.getStringSet(KEY_DISABLED_MONITORED, new HashSet<>());
+    }
+
+    public void setMonitoredEnabled(String label, boolean enabled) {
+        Set<String> current = new HashSet<>(getDisabledMonitoredLabels());
+        if (enabled) {
+            current.remove(label);
+        } else {
+            current.add(label);
+        }
+        prefs.edit().putStringSet(KEY_DISABLED_MONITORED, current).apply();
+    }
+
+    public boolean isMonitoredEnabled(String label) {
+        return !getDisabledMonitoredLabels().contains(label);
+    }
+
+    public Set<String> getDisabledNotifyLabels() {
+        return prefs.getStringSet(KEY_DISABLED_NOTIFY, new HashSet<>());
+    }
+
+    public void setNotifyEnabled(String label, boolean enabled) {
+        Set<String> current = new HashSet<>(getDisabledNotifyLabels());
+        if (enabled) {
+            current.remove(label);
+        } else {
+            current.add(label);
+        }
+        prefs.edit().putStringSet(KEY_DISABLED_NOTIFY, current).apply();
+    }
+
+    public boolean isNotifyEnabled(String label) {
+        return !getDisabledNotifyLabels().contains(label);
+    }
+
     // Colors
 
     public String getNotificationColor(String label) {
@@ -196,14 +236,48 @@ public class AppConfig {
 
     public void setNotificationColor(String label, String colorHex) {
         String normalized = normalizeLabel(label);
-        if (normalized == null)
+        if (normalized == null) {
             return;
+        }
 
-        // Load, update, save
-        // Note: This is inefficient for many colors but fine for this scale
-        // A real DB would be better if this grows
-        // For now, simple string parsing/building
-        // Implementation omitted for brevity in this MVP step
+        // Load existing colors
+        String colorsStr = prefs.getString(KEY_NOTIFICATION_COLORS, "");
+        StringBuilder newColorsStr = new StringBuilder();
+        boolean found = false;
+
+        // Update or keep existing entries
+        for (String pair : colorsStr.split(",")) {
+            if (pair.trim().isEmpty()) {
+                continue;
+            }
+            String[] parts = pair.split(":");
+            if (parts.length == 2) {
+                if (parts[0].equals(normalized)) {
+                    // Update this entry
+                    if (newColorsStr.length() > 0) {
+                        newColorsStr.append(",");
+                    }
+                    newColorsStr.append(normalized).append(":").append(colorHex);
+                    found = true;
+                } else {
+                    // Keep other entries
+                    if (newColorsStr.length() > 0) {
+                        newColorsStr.append(",");
+                    }
+                    newColorsStr.append(pair);
+                }
+            }
+        }
+
+        // Add new entry if not found
+        if (!found) {
+            if (newColorsStr.length() > 0) {
+                newColorsStr.append(",");
+            }
+            newColorsStr.append(normalized).append(":").append(colorHex);
+        }
+
+        prefs.edit().putString(KEY_NOTIFICATION_COLORS, newColorsStr.toString()).apply();
     }
 
     // Helpers

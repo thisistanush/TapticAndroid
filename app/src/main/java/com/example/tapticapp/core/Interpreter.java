@@ -76,14 +76,21 @@ public class Interpreter {
 
     private void maybeNotify(String label, double score, boolean isEmergency, boolean isLocal, String deviceName) {
         // Check if confidence meets threshold
-        if (score < appConfig.getNotifyThreshold())
+        if (score < appConfig.getNotifyThreshold()) {
             return;
+        }
+
+        // Check if monitored (if local)
+        if (isLocal && !appConfig.isMonitoredEnabled(label)) {
+            return;
+        }
 
         // Check cooldown
         long now = System.currentTimeMillis();
         Long lastTime = lastNotifyTime.get(label);
-        if (lastTime != null && (now - lastTime) < COOLDOWN_MS)
+        if (lastTime != null && (now - lastTime) < COOLDOWN_MS) {
             return;
+        }
         lastNotifyTime.put(label, now);
 
         // Broadcast if local and enabled
@@ -91,9 +98,11 @@ public class Interpreter {
             broadcastSender.sendEvent(label);
         }
 
-        // Trigger notification
-        if (notificationCallback != null) {
-            notificationCallback.onNotification(label, score, isEmergency, isLocal, deviceName);
+        // Trigger notification if enabled
+        if (appConfig.isNotifyEnabled(label)) {
+            if (notificationCallback != null) {
+                notificationCallback.onNotification(label, score, isEmergency, isLocal, deviceName);
+            }
         }
     }
 

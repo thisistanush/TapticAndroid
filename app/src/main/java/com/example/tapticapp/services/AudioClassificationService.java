@@ -13,6 +13,8 @@ import android.util.Log;
 import com.example.tapticapp.audio.YamnetAudioClassifier;
 import com.example.tapticapp.config.AppConfig;
 import com.example.tapticapp.core.Interpreter;
+import com.example.tapticapp.data.DetectionEvent;
+import com.example.tapticapp.data.HistoryRepository;
 import com.example.tapticapp.network.BroadcastListener;
 import com.example.tapticapp.network.BroadcastSender;
 import com.example.tapticapp.notifications.TapticNotificationManager;
@@ -33,6 +35,7 @@ public class AudioClassificationService extends Service {
     private TapticNotificationManager notificationManager;
     private BroadcastSender broadcastSender;
     private BroadcastListener broadcastListener;
+    private HistoryRepository historyRepository;
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
     private final IBinder binder = new LocalBinder();
@@ -46,6 +49,8 @@ public class AudioClassificationService extends Service {
 
     public interface ServiceCallback {
         void onAudioUpdate(List<Interpreter.DetectionResult> top3, double level);
+
+        void onEmergencyFlash();
     }
 
     public void setCallback(ServiceCallback callback) {
@@ -61,6 +66,7 @@ public class AudioClassificationService extends Service {
         audioClassifier = new YamnetAudioClassifier(getApplicationContext());
         broadcastSender = new BroadcastSender();
         notificationManager = new TapticNotificationManager(getApplicationContext());
+        historyRepository = HistoryRepository.getInstance(getApplicationContext());
 
         interpreter = new Interpreter(
                 getApplicationContext(),
@@ -105,7 +111,27 @@ public class AudioClassificationService extends Service {
             broadcastListener.stop();
     }
 
+    public String[] getLabels() {
+        if (audioClassifier != null) {
+            return audioClassifier.getLabels();
+        }
+        return new String[0];
+    }
+
+    public void pauseAudio() {
+        if (audioClassifier != null) {
+            audioClassifier.stopListening();
+        }
+    }
+
+    public void resumeAudio() {
+        startAudioClassification();
+    }
+
     private void startAudioClassification() {
+        if (audioClassifier == null)
+            return;
+
         audioClassifier.startListening((scores, labels, level) -> {
             List<Interpreter.DetectionResult> top3 = interpreter.onFrame(scores, labels, level);
 
@@ -124,6 +150,16 @@ public class AudioClassificationService extends Service {
 
     private void handleNotification(String label, double score, boolean isEmergency, boolean isLocal,
             String deviceName) {
+        // Save to history
+        DetectionEvent event = new DetectionEvent(
+                System.currentTimeMillis(),
+                label,
+                score,
+                isEmergency,
+                !isLocal, // isRemote
+                deviceName);
+        historyRepository.insert(event);
+
         mainHandler.post(() -> {
             String emoji = appConfig.getNotificationEmoji();
             boolean playSound = appConfig.isPlaySound();
@@ -142,6 +178,8 @@ public class AudioClassificationService extends Service {
     }
 
     private void triggerEmergencyFlash() {
-        // TODO: Implement overlay activity launch
+        if (serviceCallback != null) {
+            mainHandler.post(() -> serviceCallback.onEmergencyFlash());
+        }
     }
 }

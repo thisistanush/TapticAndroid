@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Legacy colors (keeping for compatibility) -->
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -7,4 +8,28 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Taptic color scheme matching desktop exactly -->
+    <!-- Dark backgrounds -->
+    <color name="background_primary">#251F4C</color>
+    <color name="background_secondary">#2E3440</color>
+    <color name="background_elevated">#3B4252</color>
+    
+    <!-- Text colors (high contrast) -->
+    <color name="text_primary">#E5E9F0</color>
+    <color name="text_secondary">#D8DEE9</color>
+    <color name="text_tertiary">#ECEFF4</color>
+    
+    <!-- Status colors -->
+    <color name="status_important">#FFC46B</color>
+    <color name="status_remote">#8AB4FF</color>
+    <color name="status_emergency">#FF5252</color>
+    <color name="status_normal">#8AB4FF</color>
+    
+    <!-- UI elements -->
+    <color name="overlay_flash">#FFFF0000</color>
+    <color name="border_subtle">#4C566A</color>
+    <color name="accent_blue">#8AB4FF</color>
+    <color name="accent_gold">#FFC46B</color>
+    <color name="accent_red">#FF5252</color>
 </resources>

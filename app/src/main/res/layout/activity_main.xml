@@ -1,194 +1,251 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#121212"
-    tools:context=".MainActivity">
+    android:background="#121212">
 
-    <!-- Header -->
-    <TextView
-        android:id="@+id/statusText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/status_listening"
-        android:textColor="#00BCD4"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- Now Hearing Section -->
-    <TextView
-        android:id="@+id/nowHearingLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/now_hearing"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/statusText" />
-
-    <TextView
-        android:id="@+id/topSoundText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="-"
-        android:textColor="#FFFFFF"
-        android:textSize="48sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nowHearingLabel" />
-
-    <!-- Sound Level Meter -->
-    <TextView
-        android:id="@+id/soundLevelLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/sound_level"
-        android:textColor="#B0BEC5"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topSoundText" />
-
-    <ProgressBar
-        android:id="@+id/soundLevelBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="0dp"
-        android:layout_height="12dp"
-        android:layout_marginHorizontal="48dp"
-        android:layout_marginTop="8dp"
-        android:max="100"
-        android:progressDrawable="@drawable/progress_gradient"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/soundLevelLabel" />
-
-    <!-- Top 3 Card -->
-    <androidx.cardview.widget.CardView
+    <!-- Main Content -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_marginTop="32dp"
-        app:cardBackgroundColor="#1E1E1E"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="4dp"
-        app:layout_constraintTop_toBottomOf="@+id/soundLevelBar">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Header Bar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#1E1E1E"
+            android:orientation="horizontal"
+            android:padding="12dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Taptic Desktop"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/micWarningLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:text="No microphone detected"
+                android:textColor="#FF5252"
+                android:textSize="12sp"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/historyToggleButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="#2E2E2E"
+                android:text="▸ History"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                style="?attr/materialButtonOutlinedStyle" />
+
+            <Button
+                android:id="@+id/settingsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#2E2E2E"
+                android:text="⚙ Settings"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                style="?attr/materialButtonOutlinedStyle" />
+
+        </LinearLayout>
+
+        <!-- Tab Layout and Content -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/mainTabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#1E1E1E"
+                    app:tabGravity="fill"
+                    app:tabIndicatorColor="#00BCD4"
+                    app:tabMode="fixed"
+                    app:tabSelectedTextColor="#FFFFFF"
+                    app:tabTextColor="#B0BEC5" />
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/mainViewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+            <!-- Flash Overlay (for emergencies) -->
+            <View
+                android:id="@+id/flashOverlay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#D5FF5252"
+                android:clickable="false"
+                android:focusable="false"
+                android:visibility="gone" />
+
+        </FrameLayout>
+
+        <!-- Monitored/Notify Section (Expandable) -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/monitoredNotifyCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            app:cardBackgroundColor="#1E1E1E"
+            app:cardCornerRadius="0dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Header (clickable to expand/collapse) -->
+                <LinearLayout
+                    android:id="@+id/monitoredNotifyHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="What should Taptic listen and alert for?"
+                        android:textColor="#FFFFFF"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/monitoredNotifyExpandIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="▼"
+                        android:textColor="#B0BEC5"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <!-- Content (expandable) -->
+                <LinearLayout
+                    android:id="@+id/monitoredNotifyContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="Choose which sounds Taptic pays attention to (Monitored) and which of those should trigger notifications (Notify)."
+                        android:textColor="#B0BEC5"
+                        android:textSize="12sp" />
+
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/monitoredNotifyTabLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#1E1E1E"
+                        app:tabGravity="fill"
+                        app:tabIndicatorColor="#00BCD4"
+                        app:tabMode="fixed"
+                        app:tabSelectedTextColor="#FFFFFF"
+                        app:tabTextColor="#B0BEC5" />
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/monitoredNotifyViewPager"
+                        android:layout_width="match_parent"
+                        android:layout_height="160dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+    <!-- History Drawer (slides in from right) -->
+    <LinearLayout
+        android:id="@+id/historyDrawer"
+        android:layout_width="320dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:background="#1E1E1E"
+        android:elevation="8dp"
+        android:orientation="vertical"
+        android:padding="14dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-            <!-- Item 1 -->
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingVertical="8dp">
+                android:layout_weight="1"
+                android:text="History"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="32dp"
-                    android:layout_height="wrap_content"
-                    android:text="1."
-                    android:textColor="#D1C4E9"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/sound1Text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="-"
-                    android:textColor="#FFFFFF" />
-
-                <ProgressBar
-                    android:id="@+id/sound1Bar"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="100dp"
-                    android:layout_height="8dp"
-                    android:max="100"
-                    android:progressTint="#9C27B0" />
-            </LinearLayout>
-
-            <!-- Item 2 -->
-            <LinearLayout
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/clearHistoryButton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingVertical="8dp">
-
-                <TextView
-                    android:layout_width="32dp"
-                    android:layout_height="wrap_content"
-                    android:text="2."
-                    android:textColor="#FFECB3"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/sound2Text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="-"
-                    android:textColor="#FFFFFF" />
-
-                <ProgressBar
-                    android:id="@+id/sound2Bar"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="100dp"
-                    android:layout_height="8dp"
-                    android:max="100"
-                    android:progressTint="#FFC107" />
-            </LinearLayout>
-
-            <!-- Item 3 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingVertical="8dp">
-
-                <TextView
-                    android:layout_width="32dp"
-                    android:layout_height="wrap_content"
-                    android:text="3."
-                    android:textColor="#FFCCBC"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/sound3Text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="-"
-                    android:textColor="#FFFFFF" />
-
-                <ProgressBar
-                    android:id="@+id/sound3Bar"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="100dp"
-                    android:layout_height="8dp"
-                    android:max="100"
-                    android:progressTint="#FF5722" />
-            </LinearLayout>
+                android:backgroundTint="#2E2E2E"
+                android:text="Clear"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                style="?attr/materialButtonOutlinedStyle" />
 
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="10dp"
+            android:text="All sounds heard (local + remote). ★ marks notifications."
+            android:textColor="#B0BEC5"
+            android:textSize="11sp" />
+
+        <ListView
+            android:id="@+id/historyListView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="4dp" />
+
+    </LinearLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>

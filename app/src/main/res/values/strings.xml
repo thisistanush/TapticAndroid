@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Taptic</string>
-    
-    <!-- Main Screen -->
     <string name="status_listening">Listening…</string>
     <string name="now_hearing">Now hearing</string>
     <string name="sound_level">Sound level</string>
-    <string name="history">History</string>
-    <string name="settings">Settings</string>
-    
-    <!-- Tabs -->
-    <string name="tab_sound_dashboard">Sound Dashboard</string>
-    <string name="tab_captions">Captions</string>
-    
+    <string name="error_mic_permission">Microphone permission is required</string>
+
+    <!-- Tab titles -->
+    <string name="tab_sound_dashboard">Sound dashboard</string>
+    <string name="tab_live_captions">Text (live captions)</string>
+    <string name="tab_monitored">Monitored</string>
+    <string name="tab_notify">Notify</string>
+
     <!-- History -->
     <string name="history_clear">Clear</string>
     <string name="history_empty">No sounds detected yet</string>
@@ -67,7 +66,6 @@
     <string name="permission_overlay_rationale">Taptic needs overlay permission for emergency alerts</string>
     
     <!-- Errors -->
-    <string name="error_mic_permission">Microphone permission is required</string>
     <string name="error_mic_unavailable">Microphone is not available</string>
     <string name="error_model_load">Failed to load audio classification model</string>
     <string name="error_service_start">Failed to start audio monitoring service</string>

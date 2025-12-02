@@ -1,17 +1,16 @@
 package com.example.tapticapp.data;
 
 /**
- * Data class representing a caption message.
+ * Represents a caption message in the live captions chat.
+ * Can be from "You", "Them", or "System".
  */
 public class CaptionMessage {
     private final String speaker;
     private final String text;
-    private final long timestamp;
 
     public CaptionMessage(String speaker, String text) {
         this.speaker = speaker;
         this.text = text;
-        this.timestamp = System.currentTimeMillis();
     }
 
     public String getSpeaker() {
@@ -22,7 +21,15 @@ public class CaptionMessage {
         return text;
     }
 
-    public long getTimestamp() {
-        return timestamp;
+    public boolean isFromUser() {
+        return "You".equals(speaker);
+    }
+
+    public boolean isFromThem() {
+        return "Them".equals(speaker);
+    }
+
+    public boolean isFromSystem() {
+        return "System".equals(speaker);
     }
 }
